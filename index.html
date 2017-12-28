@@ -1,88 +1,67 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 
-<head>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
-  <script>
-    $(function() {
-      $(document).click(function() {
-        cdreset(); //hide the button
-      });
-    });
-  </script>
-
-  <style>
-    p {
-      text-align: center;
-      font-size: 350px;
-    }
-  </style>
-</head>
 <script>
-  var CCOUNT = 60;
+  var initialCount = 60;
 
-  var t, count;
+  var t, s, count;
 
-  var audio = new Audio('jiga.mp3');
-  audio.addEventListener('ended', function() {
-    if (count == 0)
-      audio.play();
+  var beep = new Audio('beep.wav');
+
+  count = initialCount
+
+  $(document).click(function() {
+    count = initialCount
+    clearTimeout(t)
+    clearTimeout(s)
+    beep.pause()
+    countdown()
   });
 
-  function cddisplay() {
-    // displays time in span
-    document.getElementById('timespan').innerHTML = count;
-  };
+  // beep.addEventListener('ended', function() {
+  //   if (count == 0)
+  //     beep.play();
+  // });
+
+  function playSound() {
+    beep.play()
+    s = setTimeout(playSound, 5000);
+  }
 
   function countdown() {
-    // starts countdown
-    cddisplay();
+    document.getElementById('timespan').innerHTML = count;
     if (count == 0) {
-      audio.play();
-    } else {
+        playSound();
+    }
+    else {
       count--;
+      if(count % 15 == 0){
+        beep.play()
+      }
       t = setTimeout("countdown()", 1000);
     }
   };
 
-  function cdpause() {
-    // pauses countdown
-    clearTimeout(t);
-  };
-
-  function cdreset() {
-    // resets countdown
-    audio.pause()
-    cdpause();
-    count = CCOUNT;
-    cddisplay();
-    if (count == 0) {
-
-    } else {
-      count--;
-      t = setTimeout("countdown()", 1000);
-    }
-  };
-
-  function increase60(){
-    CCOUNT = 60
+  function increase60() {
+    initialCount = 60
   }
-  function increase90(){
-    CCOUNT = 90
+
+  function increase90() {
+    initialCount = 90
   }
-  function increase120(){
-    CCOUNT = 120
+
+  function increase120() {
+    initialCount = 120
   }
 </script>
 
-<body id="mybody" onload="cdreset()">
-  <p id="timespan"></p>
+<body id="mybody" onload="countdown()">
+  <p id="timespan" style="text-align: center;  font-size: 350px;"></p>
   <input type="button" value="60" onclick="increase60()" style="font-size : 200px; height:300px; width:300px">
   <input type="button" value="90" onclick="increase90()" style="font-size : 200px; height:300px; width:300px">
   <input type="button" value="120" onclick="increase120()" style=" font-size : 200px; height:300px; width:350px">
-  <!-- <input type="button" value="Stop" onclick="cdpause()"> -->
-  <!-- <input type="button" value="Reset" onclick="cdreset()"> -->
 </body>
 
 </html>
