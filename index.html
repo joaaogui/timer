@@ -20,25 +20,40 @@
     countdown()
   });
 
+  var colour_list = [];
+
+  function new_button() {
+
+  }
+
+
+  $(document).ready(function() {
+    $('.color').on('click', '.color', function(event) {
+      colour_list.push(this.style.backgroundColor);
+      console.log(colour_list);
+      $(this).hide();
+    });
+  });
+
+
   // beep.addEventListener('ended', function() {
   //   if (count == 0)
   //     beep.play();
   // });
 
   function playSound() {
-    beep.play()
+    //beep.play()
     s = setTimeout(playSound, 5000);
   }
 
   function countdown() {
     document.getElementById('timespan').innerHTML = count;
     if (count == 0) {
-        playSound();
-    }
-    else {
+      playSound()
+    } else {
       count--;
-      if(count % 15 == 0){
-        beep.play()
+      if (count % 15 == 0) {
+        //beep.play()
       }
       t = setTimeout("countdown()", 1000);
     }
@@ -46,6 +61,14 @@
 
   function increase60() {
     initialCount = 60
+  }
+
+  function hide() {
+    document.getElementById('color').style.display = 'none';
+    document.getElementById('timer').hidden = false;
+    for (var colour in colour_list) {
+      $("#timer").append("<input class='color' type='button' style='font-size:200px; height:300px; width:300px; background:" + colour_list[colour] + "'>");
+    }
   }
 
   function increase90() {
@@ -58,10 +81,24 @@
 </script>
 
 <body id="mybody" onload="countdown()">
-  <p id="timespan" style="text-align: center;  font-size: 350px;"></p>
-  <input type="button" value="60" onclick="increase60()" style="font-size : 200px; height:300px; width:300px">
-  <input type="button" value="90" onclick="increase90()" style="font-size : 200px; height:300px; width:300px">
-  <input type="button" value="120" onclick="increase120()" style=" font-size : 200px; height:300px; width:350px">
+  <div class='color' id="color">
+    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:black">
+    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:white">
+    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:forestgreen">
+    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:red">
+    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:yellow">
+    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:navy">
+    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:khaki">
+    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:deeppink">
+    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:darkgray">
+    <input class="color" type="button" value="OK" onclick="hide()" style="font-size : 200px; height:300px; width:300px;">
+  </div>
+
+  <div id="timer" hidden="true">
+    <p id="timespan" style="text-align: center; font-size: 150px;"></p>
+  </div>
+  <!-- <input type="button" value="90" onclick="increase90()" style="font-size : 200px; height:300px; width:300px">
+  <input type="button" value="120" onclick="increase120()" style=" font-size : 200px; height:300px; width:350px"> -->
 </body>
 
 </html>
