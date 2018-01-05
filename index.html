@@ -1,87 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
+<style>
+.selected {
+  border-color: green;
+  border-width: 10px 10px 10px 10px;
+}
+</style>
+
+
 <script>
   var initialCount = 60;
-
-  var t, s, count;
-
+  var t, s, l, count, begin;
   var beep = new Audio('beep.wav');
-
   count = initialCount
 
   $(document).click(function() {
+    begin = true;
     count = initialCount
     clearTimeout(t)
     clearTimeout(s)
+    clearTimeout(l)
     beep.pause()
     countdown()
   });
 
   var colour_list = [];
 
-  function new_button() {
-
-  }
-
-
   $(document).ready(function() {
-    $('.color').on('click', '.color', function(event) {
+    $('.select-colours').on('click', '.color', function(event) {
       colour_list.push(this.style.backgroundColor);
       console.log(colour_list);
-      $(this).hide();
+      this.className += " selected";
     });
   });
 
-
-  // beep.addEventListener('ended', function() {
-  //   if (count == 0)
-  //     beep.play();
-  // });
-
   function playSound() {
-    //beep.play()
-    s = setTimeout(playSound, 5000);
+    beep.play()
+    s = setTimeout(playSound, 25);
+    l = setTimeout(stopSound, 5000);
+  }
+
+  function stopSound() {
+    clearTimeout(s)
   }
 
   function countdown() {
     document.getElementById('timespan').innerHTML = count;
     if (count == 0) {
-      playSound()
+      playSound();
     } else {
-      count--;
-      if (count % 15 == 0) {
-        //beep.play()
+      if (!begin && count < 0 && count % 5 == 0) {
+        beep.play()
       }
-      t = setTimeout("countdown()", 1000);
+      else {
+        if (!begin && count % 15 == 0) {
+          beep.play();
+        }
+      }
     }
+    t = setTimeout("countdown()", 1000);
+    count--;
+    begin = false;
   };
 
   function increase60() {
-    initialCount = 60
+    initialCount = 60;
   }
 
   function hide() {
-    document.getElementById('color').style.display = 'none';
+    $('.generate').hide();
+    $('.select-colours').hide();
     document.getElementById('timer').hidden = false;
     for (var colour in colour_list) {
-      $("#timer").append("<input class='color' type='button' style='font-size:200px; height:300px; width:300px; background:" + colour_list[colour] + "'>");
+      $("#timer").append("<input class='player' type='button' style='font-size:200px; height:300px; width:300px; background:" + colour_list[colour] + "'>");
     }
-  }
-
-  function increase90() {
-    initialCount = 90
-  }
-
-  function increase120() {
-    initialCount = 120
   }
 </script>
 
 <body id="mybody" onload="countdown()">
-  <div class='color' id="color">
+  <div class='select-colours' id="color">
     <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:black">
     <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:white">
     <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:forestgreen">
