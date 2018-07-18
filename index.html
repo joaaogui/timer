@@ -12,7 +12,7 @@
 
 
 <script>
-  var initialCount = 60;
+  var initialCount = 90;
   var t, s, l, count, begin;
   var beep = new Audio('beep.wav');
   count = initialCount
@@ -39,7 +39,7 @@
 
   function playSound() {
     beep.play()
-    s = setTimeout(playSound, 25);
+    s = setTimeout(playSound, 30);
     l = setTimeout(stopSound, 5000);
   }
 
@@ -52,10 +52,10 @@
     if (count == 0) {
       playSound();
     } else {
-      if (!begin && count < 0 && count % 5 == 0) {
+      if (!begin && count < 0 && count % 3 == 0) {
         beep.play()
       } else {
-        if (!begin && count % 15 == 0) {
+        if (!begin && count % 30 == 0) {
           beep.play();
         }
       }
@@ -65,8 +65,8 @@
     begin = false;
   };
 
-  function increase60() {
-    initialCount = 60;
+  function increase90() {
+    initialCount = 90;
   }
 
   function hide() {
@@ -81,15 +81,15 @@
 
 <body id="mybody" onload="countdown()">
   <div class='select-colours' id="color">
-    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:black">
-    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:white">
-    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:forestgreen">
-    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:red">
-    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:yellow">
-    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:navy">
-    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:khaki">
-    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:deeppink">
-    <input class="color" type="button" onclick="increase60()" style="font-size : 200px; height:300px; width:300px;background:darkgray">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:black">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:white">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:forestgreen">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:red">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:yellow">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:navy">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:khaki">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:deeppink">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:darkgray">
     <input class="color" type="button" value="OK" onclick="hide()" style="font-size : 200px; height:300px; width:300px;">
   </div>
 
