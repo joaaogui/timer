@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 	<head>
 		<title>Eclipse: New Dawn for the Galaxy</title>
@@ -13,73 +14,101 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 -->
 
+<style>
+  .selected {
+    border-color: green;
+    border-width: 10px 10px 10px 10px;
+  }
+</style>
+
+
 <script>
-  var initialCount = 60;
-
-  var t, s, count;
-
+  var initialCount = 90;
+  var t, s, l, count, begin;
   var beep = new Audio('beep.wav');
-
   count = initialCount
 
   $(document).click(function() {
+    begin = true;
     count = initialCount
     clearTimeout(t)
     clearTimeout(s)
+    clearTimeout(l)
     beep.pause()
     countdown()
   });
 
-  // beep.addEventListener('ended', function() {
-  //   if (count == 0)
-  //     beep.play();
-  // });
+  var colour_list = [];
+
+  $(document).ready(function() {
+    $('.select-colours').on('click', '.color', function(event) {
+      colour_list.push(this.style.backgroundColor);
+      console.log(colour_list);
+      this.className += " selected";
+    });
+  });
 
   function playSound() {
     beep.play()
-    s = setTimeout(playSound, 5000);
+    s = setTimeout(playSound, 30);
+    l = setTimeout(stopSound, 5000);
+  }
+
+  function stopSound() {
+    clearTimeout(s)
   }
 
   function countdown() {
     document.getElementById('timespan').innerHTML = count;
     if (count == 0) {
-        playSound();
-    }
-    else {
-      count--;
-      if(count % 15 == 0){
+      playSound();
+    } else {
+      if (!begin && count < 0 && count % 3 == 0) {
         beep.play()
+      } else {
+        if (!begin && count % 30 == 0) {
+          beep.play();
+        }
       }
-      t = setTimeout("countdown()", 1000);
     }
+    t = setTimeout("countdown()", 1000);
+    count--;
+    begin = false;
   };
 
-  function increase60() {
-    initialCount = 60
-  }
-
   function increase90() {
-    initialCount = 90
+    initialCount = 90;
   }
 
-  function increase120() {
-    initialCount = 120
+  function hide() {
+    $('.generate').hide();
+    $('.select-colours').hide();
+    document.getElementById('timer').hidden = false;
+    for (var colour in colour_list) {
+      $("#timer").append("<input class='player' type='button' style='font-size:200px; height:300px; width:300px; background:" + colour_list[colour] + "'>");
+    }
   }
 </script>
 
 <body id="mybody" onload="countdown()">
-	<div data-role='page'>
-		<div data-role='header'>
-			<h1>Eclipse Countdown Timer</h1>
-		</div>
+  <div class='select-colours' id="color">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:black">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:white">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:forestgreen">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:red">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:yellow">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:navy">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:khaki">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:deeppink">
+    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:darkgray">
+    <input class="color" type="button" value="OK" onclick="hide()" style="font-size : 200px; height:300px; width:300px;">
+  </div>
 
-		<div data-role='content'>
-  		<p id="timespan" style="text-align: center;  font-size: 350px;"></p>
-		<input type="button" value="60" onclick="increase60()" style="font-size : 200px; height:300px; width:300px">
-		<input type="button" value="90" onclick="increase90()" style="font-size : 200px; height:300px; width:300px">
-		<input type="button" value="120" onclick="increase120()" style=" font-size : 200px; height:300px; width:350px">
-		</div>
-	</div>
+  <div id="timer" hidden="true">
+    <p id="timespan" style="text-align: center; font-size: 150px;"></p>
+  </div>
+  <!-- <input type="button" value="90" onclick="increase90()" style="font-size : 200px; height:300px; width:300px">
+  <input type="button" value="120" onclick="increase120()" style=" font-size : 200px; height:300px; width:350px"> -->
 </body>
 
 </html>
