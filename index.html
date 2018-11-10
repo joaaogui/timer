@@ -28,16 +28,6 @@
     countdown()
   });
 
-  var colour_list = [];
-
-  $(document).ready(function() {
-    $('.select-colours').on('click', '.color', function(event) {
-      colour_list.push(this.style.backgroundColor);
-      console.log(colour_list);
-      this.className += " selected";
-    });
-  });
-
   function playSound() {
     beep.play()
     s = setTimeout(playSound, 30);
