@@ -12,6 +12,7 @@
 
 
 <script>
+
   var initialCount = 90;
   var t, s, l, count, begin;
   var beep = new Audio('beep.wav');
@@ -65,35 +66,10 @@
     begin = false;
   };
 
-  function increase90() {
-    initialCount = 90;
-  }
-
-  function hide() {
-    $('.generate').hide();
-    $('.select-colours').hide();
-    document.getElementById('timer').hidden = false;
-    for (var colour in colour_list) {
-      $("#timer").append("<input class='player' type='button' style='font-size:200px; height:300px; width:300px; background:" + colour_list[colour] + "'>");
-    }
-  }
 </script>
 
 <body id="mybody" onload="countdown()">
-  <div class='select-colours' id="color">
-    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:black">
-    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:white">
-    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:forestgreen">
-    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:red">
-    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:yellow">
-    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:navy">
-    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:khaki">
-    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:deeppink">
-    <input class="color" type="button" onclick="increase90()" style="font-size : 200px; height:300px; width:300px;background:darkgray">
-    <input class="color" type="button" value="OK" onclick="hide()" style="font-size : 200px; height:300px; width:300px;">
-  </div>
-
-  <div id="timer" hidden="true">
+  <div id="timer">
     <p id="timespan" style="text-align: center; font-size: 150px;"></p>
   </div>
   <!-- <input type="button" value="90" onclick="increase90()" style="font-size : 200px; height:300px; width:300px">
