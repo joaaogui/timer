@@ -6,10 +6,22 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
+const timerRef = admin.firestore().collection('timer');
+
 exports.helloWorld = functions.https.onRequest((request, response) => {
  response.send("Hello from Firebase!");
 });
 
 exports.resetTimer = functions.https.onCall((data, context) => {
- return 'bora bora'
+  console.log("################################################################################")
+
+  const snap = timerRef.doc('0pIjI4F5JUT6Hqqxy1VZ').get()
+  console.log(snap.data().time);
+
+//
+//  setTimeout(function(){
+//    console.log("Boom!");
+//  }, 2000);
+
+  return 'bora bora'
 })
