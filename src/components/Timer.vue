@@ -2,19 +2,30 @@
     <div class="timer">
         <p id="timespan">{{time}}</p>
         <v-btn color="yellow" class="reset-button" v-on:click="select">Reset</v-btn>
+        <v-btn color="yellow" class="reset-button" v-on:click="postTimer">Change to 180</v-btn>
     </div>
 </template>
 
 <script>
+  import db from '@/firebase'
+
   export default {
     name: "Timer",
 
     data: () => ({
       time: 0
     }),
+    async created() {
+      const snapshot = await db.collection('timer').doc('0pIjI4F5JUT6Hqqxy1VZ').get()
+      this.time = snapshot.data().time
+    },
     methods: {
-      select: function () {
-        console.log("borabora")
+      select: async function () {
+        const snapshot = await db.collection('timer').doc('0pIjI4F5JUT6Hqqxy1VZ').get()
+        console.log(snapshot.data())
+      },
+      postTimer(){
+        db.collection('timer').doc('0pIjI4F5JUT6Hqqxy1VZ').update({time: 180})
       }
     }
   }
