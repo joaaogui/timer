@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import db from '@/firebase'
+  import {db, functions} from '@/firebase'
 
   export default {
     name: "Timer",
@@ -21,8 +21,11 @@
     },
     methods: {
       select: async function () {
-        const snapshot = await db.collection('timer').doc('0pIjI4F5JUT6Hqqxy1VZ').get()
-        console.log(snapshot.data())
+        const resetTimer = await functions.httpsCallable('resetTimer')
+
+        resetTimer().then(result => {
+          console.log(result.data)
+        })
       },
       postTimer(){
         db.collection('timer').doc('0pIjI4F5JUT6Hqqxy1VZ').update({time: 180})
