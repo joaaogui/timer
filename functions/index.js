@@ -15,8 +15,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 exports.resetTimer = functions.https.onCall((data, context) => {
   console.log("################################################################################")
 
-  const snap = timerRef.doc('0pIjI4F5JUT6Hqqxy1VZ').get()
-  console.log(snap.data().time);
+  const snap = timerRef.doc('0pIjI4F5JUT6Hqqxy1VZ').update({time: 5155})
 
 //
 //  setTimeout(function(){

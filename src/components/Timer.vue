@@ -24,7 +24,7 @@
         const resetTimer = await functions.httpsCallable('resetTimer')
 
         resetTimer().then(result => {
-          console.log(result.data)
+          console.log(result)
         })
       },
       postTimer(){
